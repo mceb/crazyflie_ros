@@ -9,6 +9,8 @@
   <arg name="x" default="0" />
   <arg name="y" default="0" />
   <arg name="z" default="0.5" />
+  <arg name="roll_trim" default="-1.2" />
+  <arg name="pitch_trim" default="0" />
 
   <include file="$(find crazyflie_driver)/launch/crazyflie_server.launch">
   </include>
@@ -18,6 +20,8 @@
       <arg name="uri" value="$(arg uri)" />
       <arg name="tf_prefix" value="crazyflie" />
       <arg name="enable_logging" value="False" />
+      <arg name="roll_trim" value="$(arg roll_trim)" />
+      <arg name="pitch_trim" value="$(arg pitch_trim)" />
     </include>
 
     <node name="joy" pkg="joy" type="joy_node" output="screen">
@@ -43,12 +47,34 @@
     <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame) /crazyflie/base_link 100" />
 
     <!-- run vrpn client -->
-    <node pkg="ros_vrpn_client" name="vrpn" output="screen" type="ros_vrpn_client" required="true">
+    <!--node pkg="ros_vrpn_client" name="vrpn" output="screen" type="ros_vrpn_client" required="true">
       <param name="ip" value="$(arg ip)" />
       <param name="port" value="$(arg port)" />
       <param name="frame_id" value="/world" />
       <param name="child_frame_id" value="$(arg frame)" />
+    </node-->
+
+    
+    <node pkg="vrpn_client_ros" type="vrpn_client_node" name="vrpn_client_node" output="screen">
+      <rosparam subst_value="true">
+        server: $(arg ip)
+        port: 3883
+
+        update_frequency: 100.0
+        frame_id: world
+
+        # Use the VRPN server's time, or the client's ROS time.
+        use_server_time: false
+        broadcast_tf: true
+
+        # Must either specify refresh frequency > 0.0, or a list of trackers to create
+        refresh_tracker_frequency: 1.0
+        #trackers:
+        #- FirstTracker
+        #- SecondTracker
+      </rosparam>
     </node>
+
   </group>
 
 

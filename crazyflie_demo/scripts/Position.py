@@ -30,7 +30,7 @@ if __name__ == '__main__':
     rospy.wait_for_service('update_params')
     rospy.loginfo("found update_params service")
     update_params = rospy.ServiceProxy('update_params', UpdateParams)
-
+    
     rospy.set_param("kalman/resetEstimation", 1)
     update_params(["kalman/resetEstimation"])
     rospy.sleep(0.1)
