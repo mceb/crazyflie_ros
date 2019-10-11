@@ -66,8 +66,6 @@ def loader():
 
 
 def check_continuity(plan, verbose=False, h=0.01):
-    #TODO check state continuity
-    
     # tolerance of each state to satisfy continuity condition (make non-zero)
     tolerance = np.array([0.05, 0.05, 0.05, 
                           0.01, 0.01, 0.01, 

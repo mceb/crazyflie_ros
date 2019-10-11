@@ -94,6 +94,5 @@
       broadcast_tf: false
       refresh_tracker_frequency: 1.0 <!-- VRPN will add all trackers found on connection -->
     </rosparam>
-  </node>
-
+  </node>  
  </launch>
