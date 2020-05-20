@@ -25,7 +25,7 @@ if __name__ == '__main__':
     msg.header.stamp = rospy.Time.now()
     msg.header.frame_id = "/world"
 
-    pub = rospy.Publisher("/crazyflie2/cmd_full_state", FullState, queue_size=1)
+    pub = rospy.Publisher("/crazyflie1/cmd_full_state", FullState, queue_size=1)
     start_time = rospy.Time.now()
 
     while not rospy.is_shutdown():

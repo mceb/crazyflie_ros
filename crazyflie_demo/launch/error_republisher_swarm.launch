@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <arg name="trans_list" default="None" />
+    <arg name="path" default="/home/mikulas/crazyflie_ws/src/crazyflie_ros/crazyflie_demo/src/" />
+    <arg name="n_swarm" default="10" /> 
+    
+    <group ns="crazyflie1">
+        <node pkg="crazyflie_demo" type="error_republisher.py" name="error_republisher" output="screen">
+            <param name="n_agent" value="0" />
+            <param name="sensor_topic" value="/vrpn_client_node/crazyflie1/pose" />
+            <param name="reference_topic" value="/crazyflie1/cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie2">
+        <node pkg="crazyflie_demo" type="error_republisher.py" name="error_republisher" output="screen">
+            <param name="n_agent" value="1" />
+            <param name="sensor_topic" value="/vrpn_client_node/crazyflie2/pose" />
+            <param name="reference_topic" value="/crazyflie2/cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie3">
+        <node pkg="crazyflie_demo" type="error_republisher.py" name="error_republisher" output="screen">
+            <param name="n_agent" value="2" />
+            <param name="sensor_topic" value="/vrpn_client_node/crazyflie3/pose" />
+            <param name="reference_topic" value="/crazyflie3/cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie4">
+        <node pkg="crazyflie_demo" type="error_republisher.py" name="error_republisher" output="screen">
+            <param name="n_agent" value="3" />
+            <param name="sensor_topic" value="/vrpn_client_node/crazyflie4/pose" />
+            <param name="reference_topic" value="/crazyflie4/cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie5">
+        <node pkg="crazyflie_demo" type="error_republisher.py" name="error_republisher" output="screen">
+            <param name="n_agent" value="4" />
+            <param name="sensor_topic" value="/vrpn_client_node/crazyflie5/pose" />
+            <param name="reference_topic" value="/crazyflie5/cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+      
+    <!--group ns="crazyflie2">
+    </group-->
+        
+    <!-- run rviz
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find crazyflie_demo)/launch/crazyflie_pos_multi.rviz" required="true" />
+    -->
+    
+ </launch>

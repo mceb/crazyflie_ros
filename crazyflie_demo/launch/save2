@@ -1,0 +1,68 @@
+      
+    <group ns="crazyflie2">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions_ref.py" name="full_state_swarm"  output="screen">
+            <param name="n_agent" value="1" />
+            <param name="pub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="path" value="$(arg path)" />
+            <param name="transitions_list" value="$(arg trans_list)"/>>
+        </node>
+        
+        <node pkg="crazyflie_demo" type="marker_rviz_swarm.py" name="marker_republisher" output="screen">
+            <param name="n_agent" value="1" />
+            <param name="sub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie3">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions_ref.py" name="full_state_swarm"  output="screen">
+            <param name="n_agent" value="2" />
+            <param name="pub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="path" value="$(arg path)" />
+            <param name="transitions_list" value="$(arg trans_list)"/>
+        </node>
+        
+        <node pkg="crazyflie_demo" type="marker_rviz_swarm.py" name="marker_republisher" output="screen">
+            <param name="n_agent" value="2" />
+            <param name="sub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie4">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions_ref.py" name="full_state_swarm"  output="screen">
+            <param name="n_agent" value="3" />
+            <param name="pub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="path" value="$(arg path)" />
+            <param name="transitions_list" value="$(arg trans_list)"/>
+        </node>
+        
+        <node pkg="crazyflie_demo" type="marker_rviz_swarm.py" name="marker_republisher" output="screen">
+            <param name="n_agent" value="3" />
+            <param name="sub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>
+    
+    <group ns="crazyflie5">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions_ref.py" name="full_state_swarm"  output="screen">
+            <param name="n_agent" value="4" />
+            <param name="pub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="path" value="$(arg path)" />
+            <param name="transitions_list" value="$(arg trans_list)"/>
+        </node>
+        
+        <node pkg="crazyflie_demo" type="marker_rviz_swarm.py" name="marker_republisher" output="screen">
+            <param name="n_agent" value="4" />
+            <param name="sub_topic" value="cmd_full_state" />
+            <param name="frame_id" value="/world" />
+            <param name="n_swarm" value="$(arg n_swarm)" />
+        </node>
+    </group>

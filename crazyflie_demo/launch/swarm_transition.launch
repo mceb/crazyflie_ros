@@ -2,11 +2,13 @@
 <launch>
     
     <arg name="trans_list" default="None" />
-    <arg name="path" default="/home/mikulas/crazyflie_ws/src/crazyflie_ros/crazyflie_demo/src/" />
-    <arg name="n_swarm" default="10" /> 
+    <!-- arg name="path" default="/home/mikulas/crazyflie_ws/src/crazyflie_ros/crazyflie_demo/src/transitions/20191107/"     20200112/ -->
+    <arg name="path" default="/home/mikulas/crazyflie_ws/src/crazyflie_ros/crazyflie_demo/src/transitions/20191107/" />
+    <arg name="n_swarm" default="5" /> 
     
     <group ns="crazyflie1">
-        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm" output="screen">
+        <!--node pkg="crazyflie_demo" type="execute_swarm_transitions_ref.py" name="full_state_swarm" output="screen"-->
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm" output="screen">    
             <param name="n_agent" value="0" />
             <param name="pub_topic" value="cmd_full_state" />
             <param name="frame_id" value="/world" />
@@ -21,14 +23,15 @@
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
     </group>
-      
+    
+    
     <group ns="crazyflie2">
-        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm" output="screen">
             <param name="n_agent" value="1" />
             <param name="pub_topic" value="cmd_full_state" />
             <param name="frame_id" value="/world" />
             <param name="path" value="$(arg path)" />
-            <param name="transitions_list" value="$(arg trans_list)"/>>
+            <param name="transitions_list" value="$(arg trans_list)"/>
         </node>
         
         <node pkg="crazyflie_demo" type="marker_rviz_swarm.py" name="marker_republisher" output="screen">
@@ -38,9 +41,10 @@
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
     </group>
+    
     
     <group ns="crazyflie3">
-        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm" output="screen">
             <param name="n_agent" value="2" />
             <param name="pub_topic" value="cmd_full_state" />
             <param name="frame_id" value="/world" />
@@ -55,9 +59,11 @@
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
     </group>
+    
+    
     
     <group ns="crazyflie4">
-        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm" output="screen">
             <param name="n_agent" value="3" />
             <param name="pub_topic" value="cmd_full_state" />
             <param name="frame_id" value="/world" />
@@ -72,9 +78,10 @@
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
     </group>
+    
     
     <group ns="crazyflie5">
-        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
+        <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm" output="screen">
             <param name="n_agent" value="4" />
             <param name="pub_topic" value="cmd_full_state" />
             <param name="frame_id" value="/world" />
@@ -90,7 +97,10 @@
         </node>
     </group>
     
-    <group ns="crazyflie6">
+    
+    
+    
+    <!--group ns="crazyflie6">
         <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
             <param name="n_agent" value="5" />
             <param name="pub_topic" value="cmd_full_state" />
@@ -105,9 +115,9 @@
             <param name="frame_id" value="/world" />
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
-    </group>
+    </group-->
     
-    <group ns="crazyflie7">
+    <!--group ns="crazyflie7">
         <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
             <param name="n_agent" value="6" />
             <param name="pub_topic" value="cmd_full_state" />
@@ -122,9 +132,9 @@
             <param name="frame_id" value="/world" />
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
-    </group>
+    </group-->
     
-    <group ns="crazyflie8">
+    <!--group ns="crazyflie8">
         <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
             <param name="n_agent" value="7" />
             <param name="pub_topic" value="cmd_full_state" />
@@ -139,9 +149,9 @@
             <param name="frame_id" value="/world" />
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
-    </group>
+    </group-->
     
-    <group ns="crazyflie9">
+    <!--group ns="crazyflie9">
         <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
             <param name="n_agent" value="8" />
             <param name="pub_topic" value="cmd_full_state" />
@@ -156,9 +166,9 @@
             <param name="frame_id" value="/world" />
             <param name="n_swarm" value="$(arg n_swarm)" />
         </node>
-    </group>
+    </group-->
     
-    <group ns="crazyflie10">
+    <!--group ns="crazyflie10">
         <node pkg="crazyflie_demo" type="execute_swarm_transitions.py" name="full_state_swarm"  output="screen">
             <param name="n_agent" value="9" />
             <param name="pub_topic" value="cmd_full_state" />
@@ -171,9 +181,9 @@
             <param name="n_agent" value="9" />
             <param name="sub_topic" value="cmd_full_state" />
             <param name="frame_id" value="/world" />
-            <param name="n_swarm" value="$(arg n_swarm)" />
+            <param name="n_swarm" value="$(arg n_swarme)" />
         </node>
-    </group>
+    </group-->
     
     <!-- run rviz
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find crazyflie_demo)/launch/crazyflie_pos_multi.rviz" required="true" />

@@ -12,6 +12,7 @@ ROS publisher which executes precomputed agent transition form swarm transitions
 import rospy
 import tf_conversions
 from crazyflie_driver.msg import FullState
+from std_msgs.msg import Empty
 import geometry_msgs
 import numpy as np
 
@@ -54,11 +55,11 @@ def loader(trans_list, path):
 
 def check_continuity(plan, n_agent, verbose=False, h=0.01):
     # tolerance of each state to satisfy continuity condition (make non-zero)
-    tolerance = np.array([0.05, 0.05, 0.05, 
-                          0.01, 0.01, 0.01, 
-                          0.001, 0.001, 0.001, 
-                          0.01, 
-                          0.01, 0.01, 0.01])
+    tolerance = np.array([0.1, 0.1, 0.1, 
+                          0.1, 0.1, 0.1, 
+                          0.1, 0.1, 0.1, 
+                          0.1, 
+                          0.1, 0.1, 0.1])
 
 
     for idx in range(len(plan)-1):
@@ -161,6 +162,7 @@ if __name__ == '__main__':
         msg.header.frame_id = frame_id
         
         pub = rospy.Publisher(ns + pub_topic, FullState, queue_size=1)
+        stop_pub = rospy.Publisher(ns + 'cmd_stop', Empty, queue_size=1)
         
         rospy.loginfo('Start Execution')
         for sub_plan in plan:
@@ -168,6 +170,8 @@ if __name__ == '__main__':
             
             if isinstance(sub_plan, Transition):
                 execute_transition(pub, rate, msg, sub_plan, n_agent)
+        
+        stop_pub.publish(Empty())
         
         rospy.loginfo('Finished Execution')
     

@@ -2,7 +2,7 @@
 
 """
 Author: Mikulas Cebecauer
-Date: 08/10/19
+Date: 05/11/19
 
 Describtion:
 ROS publisher which executes precomputed trajectory & transition
@@ -170,7 +170,7 @@ def execute_trajectory(pub, rate, msg, traj):
     return
 
 
-def execute_transition(pub, rate, msg, trans):
+def execute_transition(pub, pub_ref, rate, msg, trans, ref):
     start_time = rospy.Time.now()
     
     count = 0
@@ -199,6 +199,11 @@ def execute_transition(pub, rate, msg, trans):
 
         pub.publish(msg)
         count += 1 
+        
+        ref.header.seq += 1
+        ref.header.stamp = rospy.Time.now()
+        pub_ref.publish(ref)
+        
         rate.sleep()
     
     return
@@ -220,18 +225,48 @@ if __name__ == '__main__':
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = "/world"
 
+        ref = FullState()
+        ref.header.seq = 0
+        ref.header.stamp = rospy.Time.now()
+        ref.header.frame_id = "/world"
+        ref.twist.linear.x     = 0
+        ref.twist.linear.y     = 0
+        ref.twist.linear.z     = 0
+        ref.acc.x              = 0
+        ref.acc.y              = 0
+        ref.acc.z              = 0
+        ref.pose.orientation   = geometry_msgs.msg.Quaternion(*tf_conversions.transformations.quaternion_from_euler(0, 0, 0))
+        ref.twist.angular.x    = 0
+        ref.twist.angular.y    = 0
+        ref.twist.angular.z    = 0
+        
         pub = rospy.Publisher("/crazyflie1/cmd_full_state", FullState, queue_size=1)
+        pub_ref = rospy.Publisher("/crazyflie1/ref_state", FullState, queue_size=1)
+        
+        # x, y, z (ass supplied in MPC simulator), assuming yaw = 0 const.
+        ref_points = [[-0.5, 0.0, 1.0],
+                      [-0.5, 1.0, 1.0],
+                      [0.5, 1.0, 1.0],
+                      [-0.5, 0.0, 1.0],
+                      [-0.5, 0.0, 0.0]]
         
         print("Start Execution \r\n")
+        idx = 0
         for sub_plan in plan:
             print("Executing:" +  str(sub_plan) + "\r\n")
-        
+            
+            ref.pose.position.x = ref_points[int(idx)][0]
+            ref.pose.position.y = ref_points[int(idx)][1]
+            ref.pose.position.z = ref_points[int(idx)][2]
+            
             if isinstance(sub_plan, uav_trajectory.Trajectory):
                 execute_trajectory(pub, rate, msg, sub_plan)
             
             if isinstance(sub_plan, Transition):
-                execute_transition(pub, rate, msg, sub_plan)
-        
+                execute_transition(pub, pub_ref, rate, msg, sub_plan, ref)
+            
+            idx +=1
+            
         print("Finished Execution \r\n")
     
     else:

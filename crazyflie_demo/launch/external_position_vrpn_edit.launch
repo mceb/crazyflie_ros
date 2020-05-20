@@ -19,10 +19,15 @@
       <param name="enable_logging_pressure" value="False" />
       <param name="enable_logging_battery" value="False" />
       <param name="enable_logging_packets" value="False" />
-      <rosparam>
+      <!--rosparam>
         genericLogTopics: ["log1"]
         genericLogTopicFrequencies: [100]
         genericLogTopic_log1_Variables: ["stateEstimate.x", "stateEstimate.y", "stateEstimate.z"]
+      </rosparam-->
+      <rosparam>
+        genericLogTopics: ["log2"]
+        genericLogTopicFrequencies: [100]
+        genericLogTopic_log2_Variables: ["ctrltarget.roll", "ctrltarget.pitch", "ctrltarget.yaw"]
       </rosparam>
     </node>
     

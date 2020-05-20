@@ -44,7 +44,7 @@ def republish():
     rospy.init_node('marker_republisher', anonymous=True)
     
     publisher = rospy.Publisher('vis_marker', Marker, queue_size=5)
-    rospy.Subscriber('/crazyflie2/cmd_full_state', FullState, callback, (publisher))
+    rospy.Subscriber('/crazyflie1/cmd_full_state', FullState, callback, (publisher))
     
     
     # spin() simply keeps python from exiting until this node is stopped
